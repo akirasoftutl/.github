@@ -1,0 +1,56 @@
+name: Sincronizar etiquetas Scrum
+
+# Crea/actualiza las etiquetas de labels.json en todos los repos de la organización.
+# Requiere el secreto ORG_TOKEN: un Personal Access Token (classic) con scope "repo"
+# (o fine-grained con permiso "Issues: Read and write" sobre todos los repos de la org).
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: "Repo específico (vacío = todos los repos de la organización)"
+        required: false
+        default: ""
+  push:
+    branches: [main]
+    paths: [labels.json]
+  schedule:
+    - cron: "0 6 * * 1" # cada lunes, para cubrir repos nuevos
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sincronizar etiquetas
+        env:
+          GH_TOKEN: ${{ secrets.ORG_TOKEN }}
+          ORG: ${{ github.repository_owner }}
+          TARGET_REPO: ${{ inputs.repo }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Falta el secreto ORG_TOKEN (ver SCRUM.md, sección Configuración)."
+            exit 1
+          fi
+
+          if [ -n "$TARGET_REPO" ]; then
+            repos="$TARGET_REPO"
+          else
+            repos=$(gh repo list "$ORG" --limit 500 --no-archived --json name --jq '.[].name')
+          fi
+
+          for repo in $repos; do
+            echo "::group::$ORG/$repo"
+            jq -c '.[]' labels.json | while read -r label; do
+              name=$(jq -r '.name' <<< "$label")
+              color=$(jq -r '.color' <<< "$label")
+              desc=$(jq -r '.description' <<< "$label")
+              gh label create "$name" --repo "$ORG/$repo" --color "$color" --description "$desc" --force \
+                || echo "::warning::No se pudo crear '$name' en $repo"
+            done
+            echo "::endgroup::"
+          done

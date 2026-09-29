@@ -1,0 +1,72 @@
+name: 🏃 Sprint (Planning · Review · Retro)
+description: Issue de seguimiento de un Sprint. La abre el Scrum Master al iniciar el Sprint y la cierra al terminar.
+title: "[SPRINT] Sprint N — <fecha inicio> a <fecha fin>"
+labels: ["tipo: sprint", "rol: scrum master"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Usa esta issue como **registro del Sprint**. Complétala en tres momentos:
+        1. **Sprint Planning** (al inicio)
+        2. **Sprint Review** (al final, con el Product Owner)
+        3. **Sprint Retrospective** (al final, solo el equipo)
+  - type: input
+    id: fechas
+    attributes:
+      label: 📅 Fechas
+      placeholder: "01/10/2026 – 14/10/2026 (2 semanas)"
+    validations:
+      required: true
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: 🎯 Sprint Goal (Objetivo del Sprint)
+      description: Una frase que describa el valor que se entregará.
+    validations:
+      required: true
+  - type: textarea
+    id: backlog
+    attributes:
+      label: 📋 Sprint Backlog
+      description: Historias comprometidas (con su número y puntos).
+      value: |
+        | Historia | Puntos | Responsable |
+        |---|---|---|
+        | #  |  | @ |
+        | #  |  | @ |
+
+        **Capacidad del equipo:** __ puntos · **Comprometido:** __ puntos
+  - type: textarea
+    id: daily
+    attributes:
+      label: 🗣️ Daily Scrum — impedimentos detectados
+      description: Anota aquí los bloqueos que surjan en las dailies.
+      placeholder: "- [ ] (fecha) Bloqueo: ... → Responsable: @..."
+  - type: textarea
+    id: review
+    attributes:
+      label: 🎬 Sprint Review
+      value: |
+        **Completado:**
+        -
+
+        **No completado (vuelve al backlog):**
+        -
+
+        **Feedback del Product Owner / stakeholders:**
+        -
+
+        **Velocidad del Sprint:** __ puntos
+  - type: textarea
+    id: retro
+    attributes:
+      label: 🔄 Sprint Retrospective
+      value: |
+        **😀 ¿Qué salió bien?**
+        -
+
+        **😕 ¿Qué se puede mejorar?**
+        -
+
+        **🚀 Acciones para el próximo Sprint:**
+        - [ ]
