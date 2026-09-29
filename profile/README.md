@@ -1,21 +1,11 @@
-## Hola Equipo AkiraSoft - UTL 👋
+## AkiraSoft UTL
 
-Trabajamos con **Scrum** usando GitHub Issues y GitHub Projects.
+Hola, somos AkiraSoft, el equipo de desarrollo de la UTL.
 
-### 🏃 Cómo trabajamos
+### Para el equipo
 
-- 📘 **[Guía Scrum](https://github.com/akirasoftutl/.github/blob/main/SCRUM.md)** — roles, ceremonias, flujo de estados, Definition of Ready y Definition of Done.
-- 🗂️ **Tablero:** [Scrum Board](https://github.com/orgs/akirasoftutl/projects) — revisa la vista *Tablero del Sprint* en cada Daily.
-- 📝 **Nueva tarea:** en cualquier repo → *Issues* → *New issue* → elige la plantilla (Épica, Historia de Usuario, Tarea, Bug, Spike o Sprint).
+Organizamos el trabajo por sprints de dos semanas. Todo lo que hay que hacer vive en las issues de cada repo y se sigue en el [tablero](https://github.com/orgs/akirasoftutl/projects/1).
 
-### 👥 Roles
+Si vas a registrar algo nuevo, abre una issue en el repo que corresponda y elige la plantilla que le quede: historia de usuario, tarea, bug, etc. Si te asignan una, muévela en el tablero conforme avances.
 
-| Rol | Equipo |
-|---|---|
-| Product Owner | `@akirasoftutl/product-owner` |
-| Scrum Master | `@akirasoftutl/scrum-master` |
-| Equipo de desarrollo | `@akirasoftutl/desarrollo` |
-
-### 🔄 Flujo
-
-`Backlog → Listo → Por hacer → En progreso → En revisión → Hecho`
+Los detalles (roles, juntas, cuándo algo se da por terminado) están en la [guía de trabajo](https://github.com/akirasoftutl/.github/blob/main/SCRUM.md).
