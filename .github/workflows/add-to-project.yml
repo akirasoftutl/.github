@@ -1,0 +1,59 @@
+name: Agregar issues al tablero
+
+# Revisa las issues abiertas de todos los repos de la organización y agrega
+# al tablero (GitHub Projects) las que todavía no estén.
+# Requiere el secreto ORG_TOKEN: Personal Access Token (classic) con scopes
+# "repo", "project" y "read:org".
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *" # cada 15 minutos
+
+permissions:
+  contents: read
+
+concurrency:
+  group: add-to-project
+  cancel-in-progress: false
+
+env:
+  PROJECT_NUMBER: 1 # https://github.com/orgs/akirasoftutl/projects/1
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Agregar issues faltantes
+        env:
+          GH_TOKEN: ${{ secrets.ORG_TOKEN }}
+          ORG: ${{ github.repository_owner }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Falta el secreto ORG_TOKEN (ver SCRUM.md, sección Configuración)."
+            exit 1
+          fi
+
+          # Issues que ya están en el tablero
+          gh project item-list "$PROJECT_NUMBER" --owner "$ORG" --limit 5000 --format json \
+            --jq '.items[].content.url // empty' | sort -u > en_tablero.txt
+
+          # Issues abiertas de todos los repos (sin archivar)
+          : > abiertas.txt
+          for repo in $(gh repo list "$ORG" --limit 500 --no-archived --json name,hasIssuesEnabled \
+                          --jq '.[] | select(.hasIssuesEnabled) | .name'); do
+            gh issue list --repo "$ORG/$repo" --state open --limit 1000 --json url --jq '.[].url' >> abiertas.txt
+          done
+          sort -u -o abiertas.txt abiertas.txt
+
+          faltantes=$(comm -23 abiertas.txt en_tablero.txt)
+          if [ -z "$faltantes" ]; then
+            echo "Todo al día: no hay issues nuevas."
+            exit 0
+          fi
+
+          for url in $faltantes; do
+            echo "Agregando $url"
+            gh project item-add "$PROJECT_NUMBER" --owner "$ORG" --url "$url" >/dev/null \
+              || echo "::warning::No se pudo agregar $url"
+          done

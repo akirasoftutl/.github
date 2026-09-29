@@ -111,7 +111,14 @@ Esto crea los equipos (roles), el proyecto **Scrum Board** con campos *Story Poi
    - **Product Backlog** → Table, filtro `status:Backlog,Listo`, ordenada por Prioridad
    - **Por persona** → Board agrupado por *Assignees*
    - **Roadmap** → Roadmap por Sprint
-4. En **Workflows** activar: *Auto-add to project* (filtro `is:issue`), *Item closed → Hecho*, *Pull request merged → Hecho*.
+4. En **Workflows** activar: *Item closed → Done* y *Pull request merged → Done*. (Para meter las issues de todos los repos al tablero usa la sección **4. Automatización** de abajo; el *Auto-add to project* nativo solo cubre un repo por workflow.)
 5. Agregar a cada integrante a su equipo en `https://github.com/orgs/akirasoftutl/teams`.
 
-**4. Etiquetas automáticas en repos nuevos (opcional)** — crea un token (Settings → Developer settings → Personal access tokens, scope `repo`) y guárdalo como secreto `ORG_TOKEN` en este repo. El workflow *Sincronizar etiquetas Scrum* correrá cada lunes y cada vez que cambie `labels.json`; también puedes lanzarlo a mano desde *Actions*.
+**4. Automatización para todos los repos** — crea un token en *Settings → Developer settings → Personal access tokens → Tokens (classic)* con los scopes `repo`, `project` y `read:org`, y guárdalo como secreto **`ORG_TOKEN`** en este repo (*Settings → Secrets and variables → Actions → New repository secret*). Con eso funcionan dos workflows:
+
+| Workflow | Qué hace | Cuándo corre |
+|---|---|---|
+| *Agregar issues al tablero* | Mete al tablero (proyecto #1) toda issue abierta de cualquier repo de la organización que aún no esté. Cubre repos nuevos sin configurar nada. | Cada 15 min y a mano desde *Actions* |
+| *Sincronizar etiquetas Scrum* | Crea/actualiza las etiquetas de `labels.json` en todos los repos. | Cada lunes, al cambiar `labels.json` y a mano |
+
+> Si cambias de tablero, actualiza `PROJECT_NUMBER` en `.github/workflows/add-to-project.yml`.
