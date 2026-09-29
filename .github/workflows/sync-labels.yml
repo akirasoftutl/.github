@@ -1,7 +1,7 @@
 name: Sincronizar etiquetas Scrum
 
 # Crea/actualiza las etiquetas de labels.json en todos los repos de la organización.
-# Requiere el secreto ORG_TOKEN: un Personal Access Token (classic) con scope "repo"
+# Requiere el secreto AKIRASOFTUTL: un Personal Access Token (classic) con scope "repo"
 # (el mismo token que usa add-to-project.yml: scopes "repo", "project" y "read:org").
 
 on:
@@ -28,12 +28,12 @@ jobs:
 
       - name: Sincronizar etiquetas
         env:
-          GH_TOKEN: ${{ secrets.ORG_TOKEN }}
+          GH_TOKEN: ${{ secrets.AKIRASOFTUTL }}
           ORG: ${{ github.repository_owner }}
           TARGET_REPO: ${{ inputs.repo }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "::error::Falta el secreto ORG_TOKEN (ver SCRUM.md, sección Configuración)."
+            echo "::error::Falta el secreto AKIRASOFTUTL (ver SCRUM.md, sección Configuración)."
             exit 1
           fi
 

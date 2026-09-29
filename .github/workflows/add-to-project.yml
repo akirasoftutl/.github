@@ -2,7 +2,7 @@ name: Agregar issues al tablero
 
 # Revisa las issues abiertas de todos los repos de la organización y agrega
 # al tablero (GitHub Projects) las que todavía no estén.
-# Requiere el secreto ORG_TOKEN: Personal Access Token (classic) con scopes
+# Requiere el secreto AKIRASOFTUTL: Personal Access Token (classic) con scopes
 # "repo", "project" y "read:org".
 
 on:
@@ -26,11 +26,11 @@ jobs:
     steps:
       - name: Agregar issues faltantes
         env:
-          GH_TOKEN: ${{ secrets.ORG_TOKEN }}
+          GH_TOKEN: ${{ secrets.AKIRASOFTUTL }}
           ORG: ${{ github.repository_owner }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "::error::Falta el secreto ORG_TOKEN (ver SCRUM.md, sección Configuración)."
+            echo "::error::Falta el secreto AKIRASOFTUTL (ver SCRUM.md, sección Configuración)."
             exit 1
           fi
 

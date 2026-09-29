@@ -114,7 +114,7 @@ Esto crea los equipos (roles), el proyecto **Scrum Board** con campos *Story Poi
 4. En **Workflows** activar: *Item closed → Done* y *Pull request merged → Done*. (Para meter las issues de todos los repos al tablero usa la sección **4. Automatización** de abajo; el *Auto-add to project* nativo solo cubre un repo por workflow.)
 5. Agregar a cada integrante a su equipo en `https://github.com/orgs/akirasoftutl/teams`.
 
-**4. Automatización para todos los repos** — crea un token en *Settings → Developer settings → Personal access tokens → Tokens (classic)* con los scopes `repo`, `project` y `read:org`, y guárdalo como secreto **`ORG_TOKEN`** en este repo (*Settings → Secrets and variables → Actions → New repository secret*). Con eso funcionan dos workflows:
+**4. Automatización para todos los repos** — crea un token en *Settings → Developer settings → Personal access tokens → Tokens (classic)* con los scopes `repo`, `project` y `read:org`, y guárdalo como secreto **`AKIRASOFTUTL`** en este repo (*Settings → Secrets and variables → Actions → New repository secret*). Con eso funcionan dos workflows:
 
 | Workflow | Qué hace | Cuándo corre |
 |---|---|---|
