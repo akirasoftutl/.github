@@ -1,0 +1,74 @@
+name: 📖 Historia de Usuario
+description: Requisito desde el punto de vista del usuario (entra al Product Backlog).
+title: "[HU] Como <rol> quiero <acción>"
+labels: ["tipo: historia", "estado: backlog"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Escribe la historia con el formato **Como / Quiero / Para**.
+        Una historia está **lista (Definition of Ready)** cuando tiene criterios de aceptación y estimación.
+  - type: input
+    id: epica
+    attributes:
+      label: 🏔️ Épica relacionada
+      description: Número de la épica (ej. #12). Déjalo vacío si no aplica.
+      placeholder: "#12"
+  - type: textarea
+    id: historia
+    attributes:
+      label: 📖 Historia
+      value: |
+        **Como** <tipo de usuario>
+        **Quiero** <acción / funcionalidad>
+        **Para** <beneficio / valor>
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: ✅ Criterios de aceptación
+      description: Usa el formato Dado / Cuando / Entonces.
+      value: |
+        - [ ] **Dado** ... **cuando** ... **entonces** ...
+        - [ ] **Dado** ... **cuando** ... **entonces** ...
+    validations:
+      required: true
+  - type: dropdown
+    id: puntos
+    attributes:
+      label: 🔢 Story Points (Fibonacci)
+      description: Se estima en el Sprint Planning / Refinamiento con Planning Poker.
+      options:
+        - "Sin estimar"
+        - "1"
+        - "2"
+        - "3"
+        - "5"
+        - "8"
+        - "13"
+        - "21 (dividir la historia)"
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad (MoSCoW)
+      options:
+        - "🔴 Must have (Debe tener)"
+        - "🟠 Should have (Debería tener)"
+        - "🟡 Could have (Podría tener)"
+        - "⚪ Won't have (No por ahora)"
+    validations:
+      required: true
+  - type: textarea
+    id: tareas
+    attributes:
+      label: 🛠️ Tareas técnicas
+      description: Divide la historia en tareas (el equipo de desarrollo las completa en el Sprint Planning).
+      placeholder: |
+        - [ ] Diseñar UI
+        - [ ] Endpoint API
+        - [ ] Pruebas
+  - type: textarea
+    id: notas
+    attributes:
+      label: 📎 Notas / Diseños / Referencias
