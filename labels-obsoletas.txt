@@ -1,0 +1,38 @@
+# Etiquetas que se eliminan de todos los repos al sincronizar.
+# El estado, la prioridad y la estimación se manejan en el tablero, no con etiquetas.
+tipo: spike
+estado: backlog
+estado: listo
+estado: por hacer
+estado: en progreso
+estado: en revisión
+estado: bloqueado
+estado: hecho
+prioridad: alta
+prioridad: media
+prioridad: baja
+sp: 1
+sp: 2
+sp: 3
+sp: 5
+sp: 8
+sp: 13
+rol: product owner
+rol: scrum master
+rol: frontend
+rol: backend
+rol: base de datos
+rol: diseño ui/ux
+rol: qa
+rol: devops
+rol: documentación
+# Etiquetas que GitHub crea por defecto en cada repo
+bug
+documentation
+duplicate
+enhancement
+good first issue
+help wanted
+invalid
+question
+wontfix

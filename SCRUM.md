@@ -1,124 +1,116 @@
-# 🏃 Guía Scrum — AkiraSoft UTL
+# Guía de trabajo
 
-Cómo trabajamos Scrum con **GitHub Issues + GitHub Projects** en todos los repositorios de la organización.
+Cómo organizamos el trabajo en AkiraSoft UTL usando GitHub Issues y el [tablero del equipo](https://github.com/orgs/akirasoftutl/projects/1). Aplica a todos los repositorios de la organización.
 
----
+## En cinco pasos
 
-## 👥 Roles
+1. **Registra el trabajo.** En el repo que corresponda, ve a *Issues > New issue* y elige una plantilla.
+2. **La issue llega sola al tablero**, en la columna *Backlog*.
+3. **El Product Owner la prioriza** y, cuando está clara y estimada, la pasa a *Ready*.
+4. **Quien la toma se asigna** (*Assignees*) y la mueve a *In progress*. Cuando abre el pull request, la pasa a *In review*.
+5. **Al fusionar el pull request se cierra sola** y pasa a *Done*, siempre que el PR diga `Closes #número`.
 
-| Rol | Equipo en GitHub | Etiqueta | Responsabilidades |
+## Qué plantilla usar
+
+| Plantilla | Cuándo usarla | Quién la crea normalmente |
+|---|---|---|
+| Historia de usuario | Una funcionalidad nueva desde el punto de vista del usuario. Es la más común. | Product Owner |
+| Tarea | Trabajo técnico concreto, casi siempre parte de una historia. | Equipo de desarrollo |
+| Reporte de error | Algo no funciona como debería. | Cualquiera |
+| Épica | Un objetivo grande que agrupa varias historias. | Product Owner |
+| Registro de sprint | Una por sprint, para dejar constancia del objetivo, la revisión y la retrospectiva. | Scrum Master |
+
+Para relacionar issues usa **Create sub-issue** dentro de la issue padre: épica > historias > tareas. El tablero muestra el avance de cada una.
+
+## El tablero
+
+Cada tarjeta es una issue. Las columnas indican en qué punto está:
+
+| Columna | Significa |
+|---|---|
+| Backlog | Registrada, todavía sin priorizar o sin detalle suficiente. |
+| Ready | Clara y estimada. Se puede empezar en cualquier momento. |
+| In progress | Alguien la está trabajando. Debe tener persona asignada. |
+| In review | Hay un pull request abierto o está en pruebas. |
+| Done | Terminada. |
+
+Además de la columna, cada tarjeta tiene campos que se llenan desde el propio tablero:
+
+- **Priority**: qué tan urgente es. La define el Product Owner.
+- **Estimate**: esfuerzo estimado por el equipo (por ejemplo en puntos 1, 2, 3, 5, 8).
+- **Iteration**: el sprint en el que se va a trabajar, si el tablero tiene ese campo.
+
+Vistas útiles: **My items** para ver solo lo tuyo, **Priority board** para decidir qué sigue y **Roadmap** para la vista por fechas.
+
+## Etiquetas
+
+Las etiquetas son solo para clasificar; el estado y la prioridad viven en el tablero.
+
+| Etiqueta | Uso |
+|---|---|
+| `tipo: ...` | La pone la plantilla automáticamente. |
+| `área: ...` | Parte del sistema: backend, frontend, base de datos, diseño, QA, DevOps o documentación. |
+| `bloqueado` | La issue no puede avanzar. Se deja en su columna y se avisa al Scrum Master. |
+
+## Roles
+
+| Rol | Responsabilidad |
+|---|---|
+| Product Owner | Decide qué se construye y en qué orden. Escribe y prioriza las historias y acepta el trabajo terminado. |
+| Scrum Master | Organiza las reuniones, abre el registro de cada sprint y ayuda a quitar bloqueos. |
+| Equipo de desarrollo | Estima, divide las historias en tareas, construye y prueba. |
+
+## El sprint
+
+Los sprints duran dos semanas.
+
+| Reunión | Cuándo | Duración | Resultado |
 |---|---|---|---|
-| **Product Owner** | `@akirasoftutl/product-owner` | `rol: product owner` | Crea Épicas e Historias, prioriza el Product Backlog, acepta o rechaza el trabajo en la Review. |
-| **Scrum Master** | `@akirasoftutl/scrum-master` | `rol: scrum master` | Abre la issue de cada Sprint, facilita las ceremonias, elimina impedimentos (`estado: bloqueado`). |
-| **Equipo de desarrollo** | `@akirasoftutl/desarrollo` | `rol: frontend`, `rol: backend`, `rol: base de datos`, `rol: diseño ui/ux`, `rol: qa`, `rol: devops`, `rol: documentación` | Estima, divide historias en tareas, construye y prueba el incremento. |
+| Planeación | Primer día | 1 a 2 horas | Objetivo del sprint e historias comprometidas, anotados en el registro de sprint. |
+| Daily | Todos los días | 15 minutos | Cada quien revisa sus tarjetas y menciona bloqueos. |
+| Refinamiento | A mitad del sprint | 1 hora | Historias del backlog con criterios claros y estimadas, listas para *Ready*. |
+| Revisión | Último día | 1 hora | Demostración de lo terminado y comentarios del Product Owner. |
+| Retrospectiva | Último día | 45 minutos | Qué mejorar en el siguiente sprint. Se cierra el registro de sprint. |
 
-> **Asignar trabajo:** abre la issue → *Assignees* (la persona) → *Labels* (`rol: ...`) → *Projects* (Scrum Board, campo **Sprint**).
+## Cuándo una historia está lista y cuándo está terminada
 
----
+**Lista para empezar (Ready)**
+- Describe quién la necesita, qué quiere y para qué.
+- Tiene criterios de aceptación.
+- Está estimada y no es demasiado grande (si pasa de 8 puntos, conviene dividirla).
 
-## 🗂️ Tipos de issue (plantillas)
-
-Al pulsar **New issue** en cualquier repo aparecen estas plantillas:
-
-| Plantilla | Quién la crea | Para qué |
-|---|---|---|
-| 🏔️ **Épica** | Product Owner | Funcionalidad grande; sus historias se vinculan como *sub-issues*. |
-| 📖 **Historia de Usuario** | Product Owner | "Como… quiero… para…" + criterios de aceptación + Story Points. |
-| 🛠️ **Tarea** | Equipo de desarrollo | Trabajo técnico concreto de una historia. |
-| 🐞 **Bug** | Cualquiera | Error encontrado. |
-| 🔬 **Spike** | Equipo de desarrollo | Investigación con tiempo limitado. |
-| 🏃 **Sprint** | Scrum Master | Registro del Sprint: Planning, Dailies, Review y Retro. |
-
-Jerarquía: **Épica → Historia de Usuario → Tareas** (usa *Create sub-issue* dentro de la issue padre).
+**Terminada (Done)**
+- Cumple todos sus criterios de aceptación.
+- El código está fusionado mediante un pull request revisado por otra persona.
+- Tiene pruebas cuando aplica.
+- El Product Owner la aceptó.
 
 ---
 
-## 🔄 Flujo de estados (To-Do)
+## Administración
 
-```
-Backlog → Listo → Por hacer → En progreso → En revisión → Hecho
-                                   ↘ Bloqueado ↗
-```
+Esta sección es solo para quien administra la organización.
 
-| Estado | Significado | Quién lo mueve |
-|---|---|---|
-| **Backlog** | Idea en el Product Backlog, sin refinar | PO |
-| **Listo** | Cumple la *Definition of Ready* | PO + equipo en el refinamiento |
-| **Por hacer** (To-Do) | Comprometida en el Sprint actual | Equipo en el Sprint Planning |
-| **En progreso** | Alguien la está trabajando (¡asígnate!) | Desarrollador |
-| **En revisión** | Hay un PR abierto o está en QA | Desarrollador |
-| **Bloqueado** | Tiene un impedimento → avisar al SM | Cualquiera |
-| **Hecho** | Cumple la *Definition of Done* (el PR con `Closes #N` la cierra sola) | Automático |
+**Qué hay en este repositorio**
 
-El estado se maneja con la columna **Status** del tablero *Scrum Board*. Las etiquetas `estado: ...` existen para quien prefiera filtrar desde la lista de issues.
+| Archivo | Función |
+|---|---|
+| `.github/ISSUE_TEMPLATE/` | Plantillas de issues. Aplican a todo repo de la organización que no tenga las suyas. |
+| `.github/pull_request_template.md` | Plantilla de pull request. |
+| `labels.json` | Etiquetas que deben existir en todos los repos. |
+| `labels-obsoletas.txt` | Etiquetas que se eliminan de todos los repos. |
+| `.github/workflows/add-to-project.yml` | Agrega al tablero las issues abiertas de todos los repos. Corre de forma periódica; GitHub decide el intervalo exacto. |
+| `.github/workflows/sync-labels.yml` | Aplica `labels.json` y `labels-obsoletas.txt` en todos los repos. Corre cada lunes y al cambiar esos archivos. |
+| `scripts/crear-equipos.sh` | Crea los equipos `product-owner`, `scrum-master` y `desarrollo`. |
 
----
+**Token**
 
-## 📅 Ceremonias
+Los dos workflows usan el secreto de Actions `AKIRASOFTUTL` de este repositorio: un token *classic* con los permisos `repo`, `project` y `read:org`. Si el token vence, genera uno nuevo y reemplaza el valor del secreto.
 
-| Ceremonia | Cuándo | Duración | Qué se hace en GitHub |
-|---|---|---|---|
-| **Sprint Planning** | Día 1 del Sprint | 2 h | SM abre la issue 🏃 Sprint. Se pasan historias de *Listo* a *Por hacer*, se asigna el campo **Sprint** y los responsables. |
-| **Daily Scrum** | Cada día | 15 min | Cada quien revisa la vista *Por persona*. Bloqueos → `estado: bloqueado` y anotarlos en la issue del Sprint. |
-| **Refinamiento** | A mitad del Sprint | 1 h | PO + equipo completan criterios de aceptación y Story Points (Planning Poker). |
-| **Sprint Review** | Último día | 1 h | Demo del incremento. Llenar la sección *Sprint Review* (velocidad = puntos en *Hecho*). |
-| **Retrospectiva** | Último día | 45 min | Llenar la sección *Retrospective* y cerrar la issue del Sprint. |
+**Repos nuevos**
 
-Sprints de **2 semanas**.
+No requieren configuración: reciben las plantillas, las etiquetas y su incorporación al tablero de forma automática. Para que las issues lleguen al tablero al instante, en lugar de esperar al workflow, se puede añadir el repo en *Workflows > Auto-add to project* del tablero.
 
----
+**Cambiar de tablero**
 
-## ✅ Definition of Ready (DoR)
-
-Una historia puede entrar a un Sprint si:
-- [ ] Sigue el formato *Como / Quiero / Para*
-- [ ] Tiene criterios de aceptación claros
-- [ ] Está estimada en Story Points (≤ 8; si es 13 o más, dividirla)
-- [ ] No tiene dependencias bloqueantes
-- [ ] El equipo la entiende
-
-## ✅ Definition of Done (DoD)
-
-Una historia está terminada si:
-- [ ] Cumple todos los criterios de aceptación
-- [ ] El código está en la rama principal vía Pull Request revisado
-- [ ] Tiene pruebas y pasan
-- [ ] El Product Owner la aceptó en la Review
-- [ ] Documentación actualizada (si aplica)
-
----
-
-## ⚙️ Configuración (solo una vez, owner de la organización)
-
-**1. Plantillas de issues y PR** — ya están activas: este repo `.github` las aplica a todos los repos de la organización que no tengan sus propias plantillas.
-
-**2. Equipos, tablero y etiquetas** — desde tu computadora, con [GitHub CLI](https://cli.github.com/):
-
-```bash
-git clone https://github.com/akirasoftutl/.github.git && cd .github
-gh auth login
-gh auth refresh -s project,admin:org
-./scripts/setup-scrum.sh
-```
-
-Esto crea los equipos (roles), el proyecto **Scrum Board** con campos *Story Points, Prioridad, Tipo, Rol*, y las etiquetas en todos los repos.
-
-**3. Pasos manuales en el tablero** (la API aún no los permite):
-1. Agregar un campo **Iteration** llamado `Sprint` (2 semanas).
-2. Editar el campo **Status** con: `Backlog, Listo, Por hacer, En progreso, En revisión, Hecho`.
-3. Crear las vistas:
-   - **Tablero del Sprint** → Board, columnas por Status, filtro `sprint:@current`
-   - **Product Backlog** → Table, filtro `status:Backlog,Listo`, ordenada por Prioridad
-   - **Por persona** → Board agrupado por *Assignees*
-   - **Roadmap** → Roadmap por Sprint
-4. En **Workflows** activar: *Item closed → Done* y *Pull request merged → Done*. (Para meter las issues de todos los repos al tablero usa la sección **4. Automatización** de abajo; el *Auto-add to project* nativo solo cubre un repo por workflow.)
-5. Agregar a cada integrante a su equipo en `https://github.com/orgs/akirasoftutl/teams`.
-
-**4. Automatización para todos los repos** — crea un token en *Settings → Developer settings → Personal access tokens → Tokens (classic)* con los scopes `repo`, `project` y `read:org`, y guárdalo como secreto **`AKIRASOFTUTL`** en este repo (*Settings → Secrets and variables → Actions → New repository secret*). Con eso funcionan dos workflows:
-
-| Workflow | Qué hace | Cuándo corre |
-|---|---|---|
-| *Agregar issues al tablero* | Mete al tablero (proyecto #1) toda issue abierta de cualquier repo de la organización que aún no esté. Cubre repos nuevos sin configurar nada. | Cada 15 min y a mano desde *Actions* |
-| *Sincronizar etiquetas Scrum* | Crea/actualiza las etiquetas de `labels.json` en todos los repos. | Cada lunes, al cambiar `labels.json` y a mano |
-
-> Si cambias de tablero, actualiza `PROJECT_NUMBER` en `.github/workflows/add-to-project.yml`.
+Actualiza `PROJECT_NUMBER` en `.github/workflows/add-to-project.yml` y el enlace al inicio de esta guía.

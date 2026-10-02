@@ -1,17 +1,11 @@
-## 📝 Descripción
+## Descripción
 
-<!-- ¿Qué cambia este PR y por qué? -->
-
-## 🔗 Issue relacionada
+<!-- Qué cambia este PR y por qué. -->
 
 Closes #
 
-## ✅ Definition of Done
+## Antes de pedir revisión
 
-- [ ] Cumple los criterios de aceptación de la historia
-- [ ] El código compila y se probó localmente
-- [ ] Se agregaron/actualizaron pruebas
-- [ ] Revisado por al menos un compañero
-- [ ] Documentación actualizada (si aplica)
-
-## 📸 Capturas (si aplica)
+- [ ] Cumple los criterios de aceptación de la issue
+- [ ] Lo probé localmente
+- [ ] Agregué o actualicé pruebas cuando aplica

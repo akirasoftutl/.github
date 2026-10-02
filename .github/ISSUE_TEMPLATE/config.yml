@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 📘 Guía Scrum de AkiraSoft
+  - name: Guía de trabajo
     url: https://github.com/akirasoftutl/.github/blob/main/SCRUM.md
-    about: Roles, ceremonias, flujo de trabajo, Definition of Ready y Definition of Done.
+    about: Qué plantilla usar, cómo funciona el tablero y cuándo una tarea se considera terminada.

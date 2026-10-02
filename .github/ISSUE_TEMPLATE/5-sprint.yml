@@ -1,0 +1,51 @@
+name: Registro de sprint
+description: Una por sprint. La abre el Scrum Master al inicio y la cierra al final.
+title: "[Sprint] Sprint N (dd/mm - dd/mm)"
+labels: ["tipo: sprint"]
+body:
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo del sprint
+      description: Una frase con lo que se espera entregar al final.
+    validations:
+      required: true
+  - type: textarea
+    id: compromiso
+    attributes:
+      label: Historias comprometidas
+      description: Las que el equipo se compromete a terminar en este sprint.
+      placeholder: |
+        - #12 Registro de usuarios
+        - #15 Inicio de sesión
+  - type: textarea
+    id: impedimentos
+    attributes:
+      label: Impedimentos
+      description: Se va llenando durante el sprint con lo que bloquee al equipo.
+  - type: textarea
+    id: review
+    attributes:
+      label: Revisión (al final del sprint)
+      value: |
+        Terminado:
+        -
+
+        No terminado (regresa al backlog):
+        -
+
+        Comentarios del Product Owner:
+        -
+  - type: textarea
+    id: retro
+    attributes:
+      label: Retrospectiva (al final del sprint)
+      value: |
+        Qué funcionó bien:
+        -
+
+        Qué mejorar:
+        -
+
+        Acciones para el siguiente sprint:
+        - [ ]

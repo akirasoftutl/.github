@@ -1,0 +1,31 @@
+name: Historia de usuario
+description: Una funcionalidad nueva descrita desde el punto de vista de quien la usa. Es el tipo más común.
+title: "[Historia] "
+labels: ["tipo: historia"]
+body:
+  - type: textarea
+    id: historia
+    attributes:
+      label: Historia
+      description: Quién la necesita, qué quiere hacer y para qué.
+      value: |
+        Como
+        quiero
+        para
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      description: Condiciones concretas que deben cumplirse para darla por terminada. Una por línea.
+      placeholder: |
+        - [ ] El usuario puede registrarse con correo y contraseña.
+        - [ ] Si el correo ya existe, se muestra un mensaje de error.
+    validations:
+      required: true
+  - type: textarea
+    id: notas
+    attributes:
+      label: Notas
+      description: Opcional. Diseños, enlaces o cualquier contexto útil.

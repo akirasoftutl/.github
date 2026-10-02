@@ -1,8 +1,8 @@
-name: Sincronizar etiquetas Scrum
+name: Sincronizar etiquetas
 
-# Crea/actualiza las etiquetas de labels.json en todos los repos de la organización.
-# Requiere el secreto AKIRASOFTUTL: un Personal Access Token (classic) con scope "repo"
-# (el mismo token que usa add-to-project.yml: scopes "repo", "project" y "read:org").
+# Crea o actualiza las etiquetas de labels.json en todos los repos de la organización
+# y elimina las que aparecen en labels-obsoletas.txt.
+# Requiere el secreto AKIRASOFTUTL (token classic con scopes "repo", "project" y "read:org").
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
         default: ""
   push:
     branches: [main]
-    paths: [labels.json]
+    paths: [labels.json, labels-obsoletas.txt]
   schedule:
     - cron: "0 6 * * 1" # cada lunes, para cubrir repos nuevos
 
@@ -45,6 +45,16 @@ jobs:
 
           for repo in $repos; do
             echo "::group::$ORG/$repo"
+            existentes=$(gh label list --repo "$ORG/$repo" --limit 500 --json name --jq '.[].name')
+
+            grep -v '^\s*#' labels-obsoletas.txt | grep -v '^\s*$' | while IFS= read -r name; do
+              if grep -qxF "$name" <<< "$existentes"; then
+                echo "Eliminando '$name'"
+                gh label delete "$name" --repo "$ORG/$repo" --yes \
+                  || echo "::warning::No se pudo eliminar '$name' en $repo"
+              fi
+            done
+
             jq -c '.[]' labels.json | while read -r label; do
               name=$(jq -r '.name' <<< "$label")
               color=$(jq -r '.color' <<< "$label")
