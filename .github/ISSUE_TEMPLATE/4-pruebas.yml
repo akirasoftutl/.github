@@ -1,0 +1,40 @@
+name: Pruebas (QA)
+description: Probar una historia o tarea antes de darla por terminada.
+title: "[QA] "
+labels: ["tipo: qa"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Lo más práctico es crear esta issue desde la historia que se va a probar, con **Create sub-issue**, para que quede vinculada.
+        Si una prueba falla, abre un **Reporte de error** como sub-issue de la misma historia.
+  - type: input
+    id: issue
+    attributes:
+      label: Qué se prueba
+      description: Número de la historia o tarea.
+      placeholder: "#12"
+    validations:
+      required: true
+  - type: textarea
+    id: casos
+    attributes:
+      label: Casos de prueba
+      description: Normalmente, uno por cada criterio de aceptación. Marca cada caso al comprobarlo.
+      placeholder: |
+        - [ ] Registro con datos válidos crea la cuenta.
+        - [ ] Registro con un correo existente muestra error.
+        - [ ] La contraseña no se guarda en texto plano.
+    validations:
+      required: true
+  - type: input
+    id: entorno
+    attributes:
+      label: Dónde se prueba
+      description: Opcional. Rama, ambiente o URL.
+      placeholder: "rama feature/registro, ambiente local"
+  - type: textarea
+    id: resultado
+    attributes:
+      label: Resultado
+      description: Se llena al terminar. Indica qué pasó y enlaza los reportes de error que se hayan abierto.

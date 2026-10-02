@@ -17,10 +17,34 @@ Cómo organizamos el trabajo en AkiraSoft UTL usando GitHub Issues y el [tablero
 | Historia de usuario | Una funcionalidad nueva desde el punto de vista del usuario. Es la más común. | Product Owner |
 | Tarea | Trabajo técnico concreto, casi siempre parte de una historia. | Equipo de desarrollo |
 | Reporte de error | Algo no funciona como debería. | Cualquiera |
+| Pruebas (QA) | Probar una historia o tarea antes de darla por terminada. | QA o quien revise |
 | Épica | Un objetivo grande que agrupa varias historias. | Product Owner |
 | Registro de sprint | Una por sprint, para dejar constancia del objetivo, la revisión y la retrospectiva. | Scrum Master |
 
-Para relacionar issues usa **Create sub-issue** dentro de la issue padre: épica > historias > tareas. El tablero muestra el avance de cada una.
+Para relacionar issues usa **Create sub-issue** dentro de la issue padre: épica > historias > tareas y pruebas. El tablero muestra el avance de cada una.
+
+## Casos comunes
+
+**Tengo una historia de usuario. ¿Dónde la creo?**
+En el repositorio donde se va a programar, con la plantilla *Historia de usuario*. Si la historia necesita cambios en varios repos (por ejemplo backend y frontend), créala en el repo principal del producto y agrega las tareas de cada repo como sub-issues. Las sub-issues pueden estar en repositorios distintos al de la historia.
+
+**Quiero agregar un CRUD a un módulo.**
+Depende de para quién es el cambio:
+- Si alguien va a usarlo (por ejemplo, el administrador da de alta y edita productos), es una **historia**: "Como administrador quiero gestionar los productos para mantener el catálogo al día". Dentro, crea una tarea por pieza técnica: modelo y migración, endpoints, validaciones, pantallas y pruebas.
+- Si es una pieza técnica que otra historia ya necesita, es una **tarea** dentro de esa historia.
+- Si la historia pasa de 8 puntos, divídela, por ejemplo una para consultar y otra para crear, editar y eliminar.
+
+**Quiero hacerle QA a una issue.**
+1. Cuando la historia llega a *In review*, abre la historia y usa **Create sub-issue** con la plantilla *Pruebas (QA)*.
+2. Escribe un caso de prueba por cada criterio de aceptación y márcalos conforme los compruebas.
+3. Si algo falla, abre un *Reporte de error* como sub-issue de la misma historia y regresa la historia a *In progress*.
+4. Si todo pasa, cierra la issue de pruebas. La historia puede pasar a *Done* cuando se fusione su pull request.
+
+**Una issue está detenida por algo externo.**
+Ponle la etiqueta `bloqueado`, deja un comentario con el motivo y avisa al Scrum Master. No la cambies de columna.
+
+**Encontré un error mientras trabajaba en otra cosa.**
+Abre un *Reporte de error* aparte en lugar de arreglarlo dentro del mismo pull request, salvo que sea parte de lo que estás haciendo.
 
 ## El tablero
 
@@ -42,13 +66,17 @@ Además de la columna, cada tarjeta tiene campos que se llenan desde el propio t
 
 Vistas útiles: **My items** para ver solo lo tuyo, **Priority board** para decidir qué sigue y **Roadmap** para la vista por fechas.
 
+## Ramas, commits y pull requests
+
+Ver [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Etiquetas
 
 Las etiquetas son solo para clasificar; el estado y la prioridad viven en el tablero.
 
 | Etiqueta | Uso |
 |---|---|
-| `tipo: ...` | La pone la plantilla automáticamente. |
+| `tipo: ...` | La pone la plantilla automáticamente: historia, tarea, bug, qa, épica o sprint. |
 | `área: ...` | Parte del sistema: backend, frontend, base de datos, diseño, QA, DevOps o documentación. |
 | `bloqueado` | La issue no puede avanzar. Se deja en su columna y se avisa al Scrum Master. |
 
@@ -82,7 +110,7 @@ Los sprints duran dos semanas.
 **Terminada (Done)**
 - Cumple todos sus criterios de aceptación.
 - El código está fusionado mediante un pull request revisado por otra persona.
-- Tiene pruebas cuando aplica.
+- Pasó sus pruebas de QA.
 - El Product Owner la aceptó.
 
 ---
@@ -101,6 +129,7 @@ Esta sección es solo para quien administra la organización.
 | `labels-obsoletas.txt` | Etiquetas que se eliminan de todos los repos. |
 | `.github/workflows/add-to-project.yml` | Agrega al tablero las issues abiertas de todos los repos. Corre de forma periódica; GitHub decide el intervalo exacto. |
 | `.github/workflows/sync-labels.yml` | Aplica `labels.json` y `labels-obsoletas.txt` en todos los repos. Corre cada lunes y al cambiar esos archivos. |
+| `CONTRIBUTING.md` | Reglas para ramas, commits y pull requests. Aplica a todos los repos. |
 | `scripts/crear-equipos.sh` | Crea los equipos `product-owner`, `scrum-master` y `desarrollo`. |
 
 **Token**
@@ -110,6 +139,10 @@ Los dos workflows usan el secreto de Actions `AKIRASOFTUTL` de este repositorio:
 **Repos nuevos**
 
 No requieren configuración: reciben las plantillas, las etiquetas y su incorporación al tablero de forma automática. Para que las issues lleguen al tablero al instante, en lugar de esperar al workflow, se puede añadir el repo en *Workflows > Auto-add to project* del tablero.
+
+**Workflows programados**
+
+GitHub desactiva los workflows programados de un repositorio público cuando pasa 60 días sin actividad. Si deja de llegar trabajo al tablero, revisa *Actions* en este repo y reactívalo con *Enable workflow*.
 
 **Cambiar de tablero**
 

@@ -2,6 +2,7 @@
   { "name": "tipo: historia", "color": "1D76DB", "description": "Historia de usuario" },
   { "name": "tipo: tarea",    "color": "0E8A16", "description": "Trabajo técnico" },
   { "name": "tipo: bug",      "color": "D73A4A", "description": "Error reportado" },
+  { "name": "tipo: qa",       "color": "FBCA04", "description": "Pruebas de una historia o tarea" },
   { "name": "tipo: épica",    "color": "3E4B9E", "description": "Agrupa varias historias" },
   { "name": "tipo: sprint",   "color": "5319E7", "description": "Registro de sprint" },
 
