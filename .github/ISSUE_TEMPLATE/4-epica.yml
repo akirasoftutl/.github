@@ -1,0 +1,33 @@
+name: Épica
+description: Objetivo grande que se divide en varias historias de usuario. La crea el Product Owner.
+title: "[Épica] "
+labels: ["tipo: épica"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Después de crearla, agrega sus historias con el botón **Create sub-issue** dentro de la épica.
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo
+      description: Qué se quiere lograr y por qué es importante.
+    validations:
+      required: true
+  - type: textarea
+    id: alcance
+    attributes:
+      label: Alcance
+      value: |
+        Incluye:
+        -
+
+        No incluye:
+        -
+    validations:
+      required: true
+  - type: textarea
+    id: exito
+    attributes:
+      label: Cómo sabremos que está terminada
+      description: Opcional.
