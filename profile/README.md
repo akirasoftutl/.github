@@ -4,7 +4,7 @@ Hola, somos AkiraSoft, el equipo de desarrollo de la UTL.
 
 ### Para el equipo
 
-Organizamos el trabajo por sprints de dos semanas. Todo lo que hay que hacer vive en las issues de cada repo y se sigue en el [tablero](https://github.com/orgs/akirasoftutl/projects/1).
+Organizamos el trabajo por sprints de una semana, de lunes a sábado. Todo lo que hay que hacer vive en las issues de cada repo y se sigue en el [tablero](https://github.com/orgs/akirasoftutl/projects/1).
 
 Si vas a registrar algo nuevo, abre una issue en el repo que corresponda y elige la plantilla que le quede: historia de usuario, tarea, bug, etc. Si te asignan una, muévela en el tablero conforme avances.
 
