@@ -14,35 +14,35 @@ Cómo organizamos el trabajo en AkiraSoft UTL usando GitHub Issues y el [tablero
 
 | Plantilla | Cuándo usarla | Quién la crea normalmente |
 |---|---|---|
-| Historia de usuario | Una funcionalidad nueva desde el punto de vista del usuario. Es la más común. | Product Owner |
-| Tarea | Trabajo técnico concreto, casi siempre parte de una historia. | Equipo de desarrollo |
+| Historia de usuario | Una funcionalidad nueva desde el punto de vista del usuario, en el repo donde se programa. Si toca varios repos, una issue por repo. Es la más común. | Product Owner |
+| Tarea | Trabajo técnico que no es una historia: proyecto base, configuración, documentación. | Equipo de desarrollo |
 | Reporte de error | Algo no funciona como debería. | Cualquiera |
-| Pruebas (QA) | Probar una historia o tarea antes de darla por terminada. | QA o quien revise |
+| Pruebas (QA) | Probar una historia de punta a punta antes de darla por terminada. Vive en el repo de la app. | QA o quien revise |
 | Épica | Un objetivo grande que agrupa varias historias. | Product Owner |
 | Registro de sprint | Una por sprint, para dejar constancia del objetivo, la revisión y la retrospectiva. | Scrum Master |
 
-Para relacionar issues usa **Create sub-issue** dentro de la issue padre: épica > historias > tareas y pruebas. El tablero muestra el avance de cada una.
+**Una issue = una rama = un pull request, en el repo donde se programa.** Para relacionar issues usa **Create sub-issue** dentro de la épica: sus hijas son las issues de cada historia (una por repo) y sus issues de QA, aunque estén en repos distintos. El tablero muestra el avance de cada épica.
 
-**Las historias y épicas se cierran solas** cuando todas sus sub-issues están cerradas, aunque estén en otros repos: una historia, cuando se cierran sus tareas y su issue de QA; una épica, cuando se cierran sus historias. Lo hace un workflow que corre cada cierto tiempo (no es instantáneo) y deja un comentario en la issue. Si al revisar falta algo, se reabre. Los registros de sprint no se cierran solos.
+**Las épicas se cierran solas** cuando todas sus sub-issues (historias y QA) están cerradas, aunque estén en otros repos. Lo hace un workflow que corre cada cierto tiempo (no es instantáneo) y deja un comentario en la épica. Si al revisar falta algo, se reabre. Las historias se cierran al fusionar su pull request con `Closes #número`. Los registros de sprint no se cierran solos.
 
 ## Casos comunes
 
 **Tengo una historia de usuario. ¿Dónde la creo?**
-En el repositorio donde se va a programar, con la plantilla *Historia de usuario*. Si la historia necesita cambios en varios repos (por ejemplo backend y frontend), créala en el repo principal del producto y agrega las tareas de cada repo como sub-issues. Las sub-issues pueden estar en repositorios distintos al de la historia.
+En el repositorio donde se va a programar, con la plantilla *Historia de usuario*. Si la historia necesita cambios en varios repos (por ejemplo la API y una app), crea **una issue en cada repo**, cada una con lo que le toca a ese repo, su rama y su pull request. Por ejemplo: `[Historia] MVP-01 Registro de cliente (API)` en el repo del backend y `[Historia] MVP-01 Registro de cliente (app del cliente)` en el de la app. La de la app dice que depende de la de la API. Agrega todas como sub-issues de su épica, junto con la issue de QA.
 
 **Quiero agregar un CRUD a un módulo.**
 Depende de para quién es el cambio:
-- Si alguien va a usarlo (por ejemplo, el administrador da de alta y edita productos), es una **historia**: "Como administrador quiero gestionar los productos para mantener el catálogo al día". Dentro, crea una tarea por pieza técnica: modelo y migración, endpoints, validaciones, pantallas y pruebas.
-- Si es una pieza técnica que otra historia ya necesita, es una **tarea** dentro de esa historia.
-- Si la historia pasa de 8 puntos, divídela, por ejemplo una para consultar y otra para crear, editar y eliminar.
+- Si alguien va a usarlo (por ejemplo, el administrador da de alta y edita productos), es una **historia**: "Como administrador quiero gestionar los productos para mantener el catálogo al día". Crea una issue en el repo del backend (modelo, endpoints, validaciones y pruebas) y otra en el de la app (pantallas), cada una con su rama.
+- Si es una pieza técnica que no es una funcionalidad para el usuario (configuración, librerías, proyecto base), es una **tarea** en el repo donde se hace.
+- Si una issue pasa de 8 puntos, divídela en dos issues del mismo repo, por ejemplo una para consultar y otra para crear, editar y eliminar.
 
 **Quiero hacerle QA a una issue.**
-1. Cuando la historia llega a *In review*, abre la historia y usa **Create sub-issue** con la plantilla *Pruebas (QA)*.
-2. Escribe un caso de prueba por cada criterio de aceptación y márcalos conforme los compruebas.
-3. Si algo falla, abre un *Reporte de error* como sub-issue de la misma historia y regresa la historia a *In progress*.
-4. Si todo pasa, cierra la issue de pruebas. Cuando las tareas y la issue de QA están cerradas, la historia se cierra sola y pasa a *Done*. Si el Product Owner no la acepta en la revisión, la reabre.
+1. Cada historia tiene una issue de *Pruebas (QA)* en el repo de la app donde el usuario hace la acción, con un caso por criterio de aceptación. Es sub-issue de la misma épica que las issues de la historia.
+2. Cuando las issues de la historia ya están fusionadas en `dev`, prueba sobre `dev` y marca los casos conforme pasan.
+3. Si algo falla, abre un *Reporte de error* en el repo donde está la falla, enlázalo en la issue de QA y déjala abierta hasta que se corrija.
+4. Si todo pasa, cierra la issue de QA. Cuando todas las historias y QA de la épica están cerradas, la épica se cierra sola. Si el Product Owner no acepta algo en la revisión, reabre la issue que corresponda.
 
-QA prueba sobre la rama `dev`, que es donde se fusiona cada tarea terminada. Para probar un pull request antes de fusionarlo: `gh pr checkout <número>`.
+Para probar un pull request antes de fusionarlo: `gh pr checkout <número>`.
 
 **Una issue está detenida por algo externo.**
 Ponle la etiqueta `bloqueado`, deja un comentario con el motivo y avisa al Scrum Master. No la cambies de columna.

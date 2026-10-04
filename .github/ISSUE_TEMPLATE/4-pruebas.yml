@@ -1,13 +1,13 @@
 name: Pruebas (QA)
-description: Probar una historia o tarea antes de darla por terminada.
+description: Probar una historia de punta a punta antes de darla por terminada. Vive en el repo de la app.
 title: "[QA] "
 labels: ["tipo: qa"]
 body:
   - type: markdown
     attributes:
       value: |
-        Lo más práctico es crear esta issue desde la historia que se va a probar, con **Create sub-issue**, para que quede vinculada.
-        Si una prueba falla, abre un **Reporte de error** como sub-issue de la misma historia.
+        Crea esta issue en el repo de la app donde el usuario hace la acción y agrégala como sub-issue de la misma épica que las issues de la historia.
+        Se prueba sobre `dev` cuando las issues de la historia ya están fusionadas. Si una prueba falla, abre un **Reporte de error** en el repo donde está la falla y enlázalo aquí.
   - type: input
     id: issue
     attributes:
