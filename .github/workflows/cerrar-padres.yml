@@ -1,0 +1,63 @@
+name: Cerrar historias y épicas terminadas
+
+# GitHub no cierra una issue cuando se cierran todas sus sub-issues.
+# Este workflow revisa las historias y épicas abiertas de todos los repos de la
+# organización y cierra las que tienen al menos una sub-issue y todas cerradas,
+# aunque las sub-issues estén en otros repos.
+# No toca los registros de sprint ni ningún otro tipo de issue.
+# Requiere el secreto AKIRASOFTUTL (token classic con scopes "repo", "project" y "read:org").
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *" # cada 30 minutos; GitHub decide el intervalo exacto
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cerrar-padres
+  cancel-in-progress: false
+
+jobs:
+  cerrar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cerrar las que ya terminaron
+        env:
+          GH_TOKEN: ${{ secrets.AKIRASOFTUTL }}
+          ORG: ${{ github.repository_owner }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Falta el secreto AKIRASOFTUTL (ver SCRUM.md, sección Administración)."
+            exit 1
+          fi
+
+          repos=$(gh repo list "$ORG" --limit 500 --no-archived --json name,hasIssuesEnabled \
+                    --jq '.[] | select(.hasIssuesEnabled) | .name')
+
+          cerradas=0
+          # Primero las historias y después las épicas: así, si al cerrar una historia
+          # su épica queda completa, la épica se cierra en la misma pasada.
+          for etiqueta in "tipo: historia" "tipo: épica"; do
+            for repo in $repos; do
+              for n in $(gh issue list --repo "$ORG/$repo" --state open --label "$etiqueta" \
+                           --limit 500 --json number --jq '.[].number'); do
+                estados=$(gh api --paginate "repos/$ORG/$repo/issues/$n/sub_issues?per_page=100" --jq '.[].state')
+                total=$(printf '%s\n' "$estados" | grep -c . || true)
+                abiertas=$(printf '%s\n' "$estados" | grep -c '^open$' || true)
+
+                if [ "$total" -gt 0 ] && [ "$abiertas" -eq 0 ]; then
+                  echo "Cerrando $repo#$n ($etiqueta): $total de $total sub-issues cerradas"
+                  if gh issue close "$n" --repo "$ORG/$repo" --reason completed \
+                       --comment "Se cerró sola porque todas sus sub-issues están cerradas ($total de $total). Si falta algo, reábrela."; then
+                    cerradas=$((cerradas + 1))
+                  else
+                    echo "::warning::No se pudo cerrar $repo#$n"
+                  fi
+                fi
+              done
+            done
+          done
+
+          echo "Issues cerradas en esta pasada: $cerradas"

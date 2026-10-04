@@ -23,6 +23,8 @@ Cómo organizamos el trabajo en AkiraSoft UTL usando GitHub Issues y el [tablero
 
 Para relacionar issues usa **Create sub-issue** dentro de la issue padre: épica > historias > tareas y pruebas. El tablero muestra el avance de cada una.
 
+**Las historias y épicas se cierran solas** cuando todas sus sub-issues están cerradas, aunque estén en otros repos: una historia, cuando se cierran sus tareas y su issue de QA; una épica, cuando se cierran sus historias. Lo hace un workflow que corre cada cierto tiempo (no es instantáneo) y deja un comentario en la issue. Si al revisar falta algo, se reabre. Los registros de sprint no se cierran solos.
+
 ## Casos comunes
 
 **Tengo una historia de usuario. ¿Dónde la creo?**
@@ -38,7 +40,7 @@ Depende de para quién es el cambio:
 1. Cuando la historia llega a *In review*, abre la historia y usa **Create sub-issue** con la plantilla *Pruebas (QA)*.
 2. Escribe un caso de prueba por cada criterio de aceptación y márcalos conforme los compruebas.
 3. Si algo falla, abre un *Reporte de error* como sub-issue de la misma historia y regresa la historia a *In progress*.
-4. Si todo pasa, cierra la issue de pruebas. La historia puede pasar a *Done* cuando sus pull requests estén fusionados en `dev`.
+4. Si todo pasa, cierra la issue de pruebas. Cuando las tareas y la issue de QA están cerradas, la historia se cierra sola y pasa a *Done*. Si el Product Owner no la acepta en la revisión, la reabre.
 
 QA prueba sobre la rama `dev`, que es donde se fusiona cada tarea terminada. Para probar un pull request antes de fusionarlo: `gh pr checkout <número>`.
 
@@ -130,6 +132,7 @@ Esta sección es solo para quien administra la organización.
 | `labels.json` | Etiquetas que deben existir en todos los repos. |
 | `labels-obsoletas.txt` | Etiquetas que se eliminan de todos los repos. |
 | `.github/workflows/add-to-project.yml` | Agrega al tablero las issues abiertas de todos los repos. Corre de forma periódica; GitHub decide el intervalo exacto. |
+| `.github/workflows/cerrar-padres.yml` | Cierra las historias y épicas abiertas cuando todas sus sub-issues están cerradas. Corre de forma periódica y también se puede lanzar a mano desde *Actions*. |
 | `.github/workflows/sync-labels.yml` | Aplica `labels.json` y `labels-obsoletas.txt` en todos los repos. Corre cada lunes y al cambiar esos archivos. |
 | `CONTRIBUTING.md` | Reglas para ramas, commits y pull requests. Aplica a todos los repos. |
 | `scripts/crear-equipos.sh` | Crea los equipos `product-owner`, `scrum-master` y `desarrollo`. |
