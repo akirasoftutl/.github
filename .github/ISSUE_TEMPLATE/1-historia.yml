@@ -1,8 +1,12 @@
 name: Historia de usuario
-description: Una funcionalidad nueva descrita desde el punto de vista de quien la usa. Es el tipo más común.
+description: Una funcionalidad nueva desde el punto de vista de quien la usa, en el repo donde se programa. Si toca varios repos, crea una en cada uno.
 title: "[Historia] "
 labels: ["tipo: historia"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Esta issue es solo la parte de **este repo**. Si la historia también necesita cambios en otro repo (por ejemplo la API y una app), crea una issue en cada uno y agrégalas como sub-issues de su épica. Cada issue tiene su propia rama y su propio pull request.
   - type: textarea
     id: historia
     attributes:
@@ -12,6 +16,23 @@ body:
         Como
         quiero
         para
+    validations:
+      required: true
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué hay que hacer en este repo
+      description: 2 a 4 frases claras para que cualquiera entienda la tarea sin leer nada más. Qué pasa, quién lo usa y cómo encaja con los otros repos.
+    validations:
+      required: true
+  - type: textarea
+    id: incluye
+    attributes:
+      label: Qué incluye
+      description: Lo concreto de este repo. En el backend, endpoints, validaciones y respuestas; en una app, pantallas, campos y mensajes.
+      placeholder: |
+        - POST /auth/registro/cliente con nombre, correo, teléfono y contraseña.
+        - Si el correo ya existe, responde 409.
     validations:
       required: true
   - type: textarea
@@ -25,7 +46,21 @@ body:
     validations:
       required: true
   - type: textarea
-    id: notas
+    id: probar
     attributes:
-      label: Notas
-      description: Opcional. Diseños, enlaces o cualquier contexto útil.
+      label: Cómo probarlo
+      description: Pasos que cualquiera del equipo pueda seguir para comprobar que funciona.
+      placeholder: |
+        1. Abrir /docs y probar POST /auth/registro/cliente con datos válidos: responde 201.
+        2. Repetir con el mismo correo: responde 409.
+    validations:
+      required: true
+  - type: textarea
+    id: relacionado
+    attributes:
+      label: Relacionado
+      description: Opcional. Épica, de qué issues depende, qué issues la usan, issue de QA, reglas de negocio y diseños.
+      placeholder: |
+        - Épica: akirasoftutl/Servia_Contexto#10
+        - Depende de: #17
+        - QA: akirasoftutl/Servia_Movil#6

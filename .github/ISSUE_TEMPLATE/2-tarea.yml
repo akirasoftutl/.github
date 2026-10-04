@@ -1,5 +1,5 @@
 name: Tarea
-description: Trabajo técnico concreto. Normalmente forma parte de una historia de usuario.
+description: Trabajo técnico que no es una historia de usuario, como el proyecto base, configuración o documentación.
 title: "[Tarea] "
 labels: ["tipo: tarea"]
 body:
@@ -30,6 +30,14 @@ body:
         - Documentación
     validations:
       required: true
+  - type: textarea
+    id: probar
+    attributes:
+      label: Cómo probarlo
+      description: Opcional. Pasos para comprobar que quedó bien.
+      placeholder: |
+        1. npm install y npm run start:dev.
+        2. Abrir /docs.
   - type: textarea
     id: terminado
     attributes:
