@@ -38,7 +38,9 @@ Depende de para quién es el cambio:
 1. Cuando la historia llega a *In review*, abre la historia y usa **Create sub-issue** con la plantilla *Pruebas (QA)*.
 2. Escribe un caso de prueba por cada criterio de aceptación y márcalos conforme los compruebas.
 3. Si algo falla, abre un *Reporte de error* como sub-issue de la misma historia y regresa la historia a *In progress*.
-4. Si todo pasa, cierra la issue de pruebas. La historia puede pasar a *Done* cuando se fusione su pull request.
+4. Si todo pasa, cierra la issue de pruebas. La historia puede pasar a *Done* cuando sus pull requests estén fusionados en `dev`.
+
+QA prueba sobre la rama `dev`, que es donde se fusiona cada tarea terminada. Para probar un pull request antes de fusionarlo: `gh pr checkout <número>`.
 
 **Una issue está detenida por algo externo.**
 Ponle la etiqueta `bloqueado`, deja un comentario con el motivo y avisa al Scrum Master. No la cambies de columna.
@@ -109,7 +111,7 @@ Los sprints duran una semana, de lunes a sábado.
 
 **Terminada (Done)**
 - Cumple todos sus criterios de aceptación.
-- El código está fusionado mediante un pull request revisado por otra persona.
+- El código está fusionado en `dev` mediante un pull request revisado por otra persona. Llega a `main` con el pull request de cierre del sprint.
 - Pasó sus pruebas de QA.
 - El Product Owner la aceptó.
 
