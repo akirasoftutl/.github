@@ -90,15 +90,15 @@ Las etiquetas son solo para clasificar; el estado y la prioridad viven en el tab
 
 ## El sprint
 
-Los sprints duran dos semanas.
+Los sprints duran una semana, de lunes a sábado.
 
 | Reunión | Cuándo | Duración | Resultado |
 |---|---|---|---|
-| Planeación | Primer día | 1 a 2 horas | Objetivo del sprint e historias comprometidas, anotados en el registro de sprint. |
-| Daily | Todos los días | 15 minutos | Cada quien revisa sus tarjetas y menciona bloqueos. |
-| Refinamiento | A mitad del sprint | 1 hora | Historias del backlog con criterios claros y estimadas, listas para *Ready*. |
-| Revisión | Último día | 1 hora | Demostración de lo terminado y comentarios del Product Owner. |
-| Retrospectiva | Último día | 45 minutos | Qué mejorar en el siguiente sprint. Se cierra el registro de sprint. |
+| Planeación | Lunes | 45 minutos | Objetivo del sprint e historias comprometidas, anotados en el registro de sprint. |
+| Daily | Lunes a sábado | 10 minutos (puede ser por mensaje) | Cada quien revisa sus tarjetas y menciona bloqueos. |
+| Refinamiento | Miércoles | 30 minutos | Historias del backlog con criterios claros y estimadas, listas para *Ready*. |
+| Revisión | Sábado | 30 minutos | Demostración de lo terminado y comentarios del Product Owner. |
+| Retrospectiva | Sábado, después de la revisión | 15 minutos | Qué mejorar en el siguiente sprint. Se cierra el registro de sprint. |
 
 ## Cuándo una historia está lista y cuándo está terminada
 
